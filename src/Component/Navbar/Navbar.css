@@ -1,0 +1,7 @@
+.navbar-container a {
+  text-decoration: none;
+  color: white;
+}
+.navbar-container a:hover {
+  color: white;
+}

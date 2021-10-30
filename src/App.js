@@ -8,6 +8,11 @@ import Notfound from './Component/Nofound/Notfound';
 import Registration from './Component/Registration/Registration';
 import AuthProvider from './Context/Authprovider';
 import PrivetRoute from './PrivetRoute/PrivetRoute';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import BookingDetails from './Component/Booking/BookingDetails';
+import Footer from './Component/Footer/Footer';
+
 
 function App() {
   return (
@@ -31,10 +36,14 @@ function App() {
        <Route exact path="/registration">
         <Registration/>
        </Route>
+       <Route exact path="/booking/:id">
+        <BookingDetails/>
+       </Route>
        <Route exact path="*">
         <Notfound/>
        </Route>
      </Switch>
+     <Footer/>
      </BrowserRouter>
      </AuthProvider>
     </div>
