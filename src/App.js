@@ -48,9 +48,9 @@ function App() {
             <Route exact path="/registration">
               <Registration />
             </Route>
-            <Route exact path="/booking/:id">
+            <PrivetRoute exact path="/booking/:id">
               <BookingDetails />
-            </Route>
+            </PrivetRoute>
             <Route exact path="/update/:id">
               <UpdateService />
             </Route>

@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import "./Booking.css";
+import useAuth from "./../../hooks/useAuth";
+import axios from "axios";
 
 const BookingDetails = () => {
   const { id } = useParams();
   const [bookingid, setBookingid] = useState({});
+  const { user } = useAuth();
 
   useEffect(() => {
     fetch(`http://localhost:5000/tour/${id}`)
       .then((res) => res.json())
       .then((data) => setBookingid(data));
   }, []);
+  const data = {
+    username: user.email,
+    status: "pending",
+    bookingid,
+  };
+
+  const orderPlace = () => {
+    console.log("order");
+    axios
+      .post("http://localhost:5000/order", data)
+      .then((response) => {
+        console.log(response);
+        if (response.data.insertedId) {
+          alert("Order Successfully added");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -83,12 +106,17 @@ const BookingDetails = () => {
                 <div className="d-flex flex-column justify-content-center align-items-center">
                   <div className="package-price text-center deep-orange">
                     <span>from</span>
-                    <h3>
+                    <h3 className="text-white">
                       <span>{bookingid.price}</span> TK
                     </h3>
                   </div>
                   <div className="package-action text-center">
-                    <button className="btn btn-outline-danger">BOOK NOW</button>
+                    <button
+                      onClick={orderPlace}
+                      className="btn btn-outline-danger"
+                    >
+                      BOOK NOW
+                    </button>
                   </div>
                 </div>
               </div>
