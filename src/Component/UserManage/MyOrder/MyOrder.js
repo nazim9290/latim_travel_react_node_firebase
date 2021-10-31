@@ -7,7 +7,7 @@ const MyOrder = () => {
   console.log(user.email);
 
   useEffect(() => {
-    const url = "http://localhost:5000/order";
+    const url = "https://fathomless-earth-27248.herokuapp.com/order";
     console.log(url);
     fetch(url)
       .then((res) => res.json())
