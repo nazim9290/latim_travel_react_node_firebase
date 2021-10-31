@@ -1,58 +1,121 @@
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { useEffect, useState } from "react";
 import initialization from "../firebaseConfig/initializeFirebase";
 
 initialization();
-const useFirebase=()=>{
-    const [user,setUser]=useState({})
+const useFirebase = () => {
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  //provider
+  const googleprovider = new GoogleAuthProvider();
+  const githubprovider = new GithubAuthProvider();
 
-    const provider = new GoogleAuthProvider();
+  //auther
+  const auth = getAuth();
 
-    const auth = getAuth();
+  const googleLogin = (provider) => {
+    // setIsLoading(true);
 
-    const login=()=>{
-     return signInWithPopup(auth, provider)
-       
-    }
+    return (
+      signInWithPopup(auth, provider)
+        // .then(result=>{
+        //     const {displayName,email,photoURL}=result.user;
+        //     const userInfo={
+        //         name:displayName,
+        //         email:email,
+        //         img: photoURL
+        //     }
+        //     setUser(userInfo)
+        //     console.log(userInfo);
+        // })
+        .finally(() => setLoading(false))
+    );
+  };
 
-    const logOut=()=>{
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            setUser({})
-            }).catch((error) => {
-            // An error happened.
-            });
-    }
+  // const githubLogin=()=>{
 
-    //on auth change 
-    useEffect(()=>{
-                onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setUser(user)
-        } else {
-            // User is signed out
-            setUser({})
-        }
-        })},[])
-    const handlecreatuser=(email,password)=>{
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
-    }
+  //     signInWithPopup(auth, githubprovider)
+  //     .then(result=>{
+  //         const {displayName,email,photoURL}=result.user;
+  //         const userInfo={
+  //             name:displayName,
+  //             email:email,
+  //             img: photoURL
+  //         }
+  //         setUser(userInfo)
+  //         console.log(userInfo);
+  //     })
+  //     .finally(() => setIsLoading(false));
+  // }
 
-    return{
-        user,
-        login,
-        logOut,
-        handlecreatuser,
-    }
-}
+  const logOut = () => {
+    setLoading(false);
+    signOut(auth)
+      .then(() => {
+        setUser({});
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  // observe whether user auth state changed or not
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser({});
+      }
+      setLoading(false);
+    });
+    return () => unsubscribe;
+  }, []);
+
+  const handleUserRegister = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
+  };
+
+  const handleUserLogin = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
+  };
+  return {
+    user,
+    googleLogin,
+    // githubLogin,
+    googleprovider,
+    githubprovider,
+    logOut,
+    setUser,
+    loading,
+    handleUserRegister,
+    handleUserLogin,
+    setLoading,
+    error,
+  };
+};
 export default useFirebase;

@@ -1,0 +1,15 @@
+.banner-container {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(173, 172, 172, 0.5),
+      rgba(196, 181, 181, 0.5)
+    ),
+    url("https://i.ibb.co/1GTC5m5/photo-1465865523598-a834aac5d3fa-ixid-Mnwx-Mj-A3f-DB8-MHxwa-G90by1w-YWdlf-Hx8f-GVuf-DB8f-Hx8-ixlib-r.jpg");
+  height: 70vh;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-align: center;
+  padding: 100px 0;
+  margin-bottom: 20px;
+}

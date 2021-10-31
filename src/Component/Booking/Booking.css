@@ -1,0 +1,56 @@
+.travel-card {
+  border-radius: 0px;
+}
+.card-header {
+  border-radius: 0px 5px 10px 0px !important;
+}
+.deep-orange {
+  background-color: #ff5722;
+}
+.light-orange {
+  background-color: #ff7043;
+}
+.baner {
+  height: 175px;
+  width: 100%;
+}
+.baner img {
+  border-radius: 0px;
+  width: 100%;
+  height: 100%;
+}
+.travel-card p {
+  font-size: 0.8rem;
+}
+.stops span {
+  font-size: 0.8rem;
+}
+.custom-package-flex {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 780px) {
+  .custom-package-flex {
+    padding-left: 1.28rem;
+  }
+}
+
+.package-price {
+  border-radius: 50%;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  margin-top: 2em;
+}
+
+.custom-label {
+  width: 100px;
+  height: 100px;
+  /*   background:red; */
+  border-radius: 50%;
+  right: -5px;
+  position: absolute;
+  top: -20px;
+  z-index: 2;
+}
