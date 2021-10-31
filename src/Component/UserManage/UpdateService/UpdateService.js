@@ -10,7 +10,10 @@ const UpdateService = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/tour/${id}`, updateService)
+      .put(
+        `https://fathomless-earth-27248.herokuapp.com/tour/${id}`,
+        updateService
+      )
       .then((response) => {
         console.log(response);
         if (response.data.insertedId) {
@@ -23,7 +26,7 @@ const UpdateService = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/tour/${id}`)
+    fetch(`https://fathomless-earth-27248.herokuapp.com/tour/${id}`)
       .then((res) => res.json())
       .then((data) => setUpdateService(data));
   }, []);

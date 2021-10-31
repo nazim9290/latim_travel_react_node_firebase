@@ -7,7 +7,7 @@ const AddNewService = () => {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:5000/tour", data)
+      .post("https://fathomless-earth-27248.herokuapp.com/tour", data)
       .then((response) => {
         console.log(response);
         if (response.data.insertedId) {

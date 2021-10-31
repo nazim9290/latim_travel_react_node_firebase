@@ -26,7 +26,7 @@ const ManageOrder = () => {
   const deleteService = (id) => {
     let result = window.confirm("Are you sure you want to delete?");
     if (result) {
-      fetch(`http://localhost:5000/tour/${id}`, {
+      fetch(`https://fathomless-earth-27248.herokuapp.com/tour/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

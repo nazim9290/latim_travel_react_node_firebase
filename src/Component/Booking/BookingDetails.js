@@ -10,7 +10,7 @@ const BookingDetails = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/tour/${id}`)
+    fetch(`https://fathomless-earth-27248.herokuapp.com/tour/${id}`)
       .then((res) => res.json())
       .then((data) => setBookingid(data));
   }, []);
@@ -23,7 +23,7 @@ const BookingDetails = () => {
   const orderPlace = () => {
     console.log("order");
     axios
-      .post("http://localhost:5000/order", data)
+      .post("https://fathomless-earth-27248.herokuapp.com/order", data)
       .then((response) => {
         console.log(response);
         if (response.data.insertedId) {
